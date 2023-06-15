@@ -160,8 +160,12 @@ namespace vmPing.Classes
                         pingOutput.Append($"{pingReply.RoundtripTime}ms");
                         pingOutput.Append(" seq=");
                         pingOutput.Append($"{Statistics.Sent}");
-                        pingOutput.Append(" ttl=");
-                        pingOutput.Append($"{pingReply.Options.Ttl}");
+                        // IPv6 Ping replies seem to return a null Options for some reason
+                        if (pingReply.Options != null)
+                        {
+                            pingOutput.Append(" ttl=");
+                            pingOutput.Append($"{pingReply.Options.Ttl}");
+                        }
                         pingOutput.Append(" byte=");
                         pingOutput.Append($"{pingReply.Buffer.Length-1}");
                         break;

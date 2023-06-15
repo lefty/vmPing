@@ -26,6 +26,21 @@ namespace vmPing.Classes
             {
                 switch (args[index].ToLower())
                 {
+                    case "/f":
+                    case "-f":
+                        if (index + 1 < args.Length && !string.IsNullOrWhiteSpace(args[index + 1]))
+                        {
+                            var favoriteTitle = args[index + 1];
+                            ApplicationOptions.FavoriteToStartWith = favoriteTitle;
+                            ++index;
+                        }
+                        else
+                        {
+                            errorMessage +=
+                                $"For switch -i you must specify the number of seconds between {MinimumInterval} and {MaxInterval}.{Environment.NewLine}";
+                            break;
+                        }
+                        break;
                     case "/i":
                     case "-i":
                         if (index + 1 < args.Length &&
@@ -41,6 +56,10 @@ namespace vmPing.Classes
                                 $"For switch -i you must specify the number of seconds between {MinimumInterval} and {MaxInterval}.{Environment.NewLine}";
                             break;
                         }
+                        break;
+                    case "/m":
+                    case "-m":
+                        ApplicationOptions.WindowState = WindowState.Maximized;
                         break;
                     case "/w":
                     case "-w":

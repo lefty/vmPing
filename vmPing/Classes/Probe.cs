@@ -30,7 +30,8 @@ namespace vmPing.Classes
     {
         Dns,
         Ping,
-        Traceroute
+        Traceroute,
+        Comment
     }
 
 

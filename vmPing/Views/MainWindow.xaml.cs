@@ -46,10 +46,21 @@ namespace vmPing.Views
             Configuration.Load();
             RefreshGuiState();
 
+            if (!string.IsNullOrWhiteSpace(ApplicationOptions.FavoriteToStartWith))
+            {
+                LoadFavorite(ApplicationOptions.FavoriteToStartWith);
+            }
+
             // Set items source for main GUI ItemsControl.
             ProbeItemsControl.ItemsSource = _ProbeCollection;
 
             _TrayNegativeStatusList.Add(ProbeStatus.Down);
+
+            if (ApplicationOptions.WindowState == WindowState.Maximized)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                SourceInitialized += (s, a) => WindowState = WindowState.Maximized;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
